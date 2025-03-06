@@ -7,7 +7,33 @@
 <body>
 
 <h1>Tere tulemast avalehele !</h1>
-<h2 th:text="${message}"></h2>
+<!-- <h2 th:text="${message}"></h2> -->
+
+<table>
+    <thead>
+        <tr>
+            <th>Sihtkoht</th>
+            <th>Lähtekoht</th>
+            <th>Kuupäev</th>
+            <th>Kellaeg</th>
+            <th>Hind</th>
+
+        </tr>
+    </thead>
+
+    <tbody>
+        <tr th:each="lennud = ${lennudList}">
+            <td th:text="${lennud.sihtkoht}">
+            <td th:text="${lennud.lähtekoht}">
+            <td th:text="${lennud.kuupäev}">
+            <td th:text="${lennud.kellaaeg}">
+            <td th:text="${lennud.hind}">
+
+
+            </td>
+        </tr>
+    </tbody>
+</table>
 
 </body>
 </html>

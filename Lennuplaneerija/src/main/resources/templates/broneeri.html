@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="et">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Lennupiletite broneerimine</title>
+  <link rel="stylesheet" type="text/css" href="/styleBroneeri.css">
+  <link rel="stylesheet" type="text/css" href="/styleNavBar.css">
+  <script>
+    // Siin on otsiLennud() funktsioon, mille juurde saad dropdown menüüdelt andmed kätte
+    async function otsiLennud() {
+      const lähtekoht = document.getElementById("lähtekoht").value;
+      const sihtkoht = document.getElementById("sihtkoht").value;
+
+      // Kontrollime, kas mõlemad valikud on valitud
+      if (!lähtekoht || !sihtkoht) {
+        alert("Palun vali mõlemad, lähtekoht ja sihtkoht.");
+        return;
+      }
+
+      try {
+        console.log("Saadan päringu serverisse...");
+        const response = await fetch(`http://localhost:8080/lennud?lähtekoht=${lähtekoht}&sihtkoht=${sihtkoht}`);
+
+        // Kontrollige, kas päring õnnestus
+        if (!response.ok) {
+          throw new Error(`Server vastas veaga: ${response.status}`);
+        }
+
+        const lennud = await response.json();
+        console.log("Saadud lennud:", lennud);  // LOGIME JSON ANDMED!
+
+        const tabel = document.getElementById("lennud-tabel");
+        tabel.innerHTML = ""; // Puhastame tabeli
+
+        if (lennud.length === 0) {
+          tabel.innerHTML = `<tr><td colspan="6">Ühtegi lendu ei leitud</td></tr>`;
+          return;
+        }
+
+        // Loome iga lennu jaoks tabeli ridade HTML
+        lennud.forEach(lend => {
+          const rida = `
+                        <tr>
+                            <td>${lend.id}</td>
+                            <td>${lend.lähtekoht}</td>
+                            <td>${lend.sihtkoht}</td>
+                            <td>${lend.kuupaev}</td>
+                            <td>${lend.kellaaeg}</td>
+                            <td>${lend.hind}</td>
+                        </tr>`;
+          tabel.innerHTML += rida;
+        });
+
+      } catch (error) {
+        console.error("Viga API päringuga:", error);
+        alert("API päring ebaõnnestus. Kontrollige serveri olekut.");
+      }
+    }
+  </script>
+</head>
+
+<body>
+
+<h1>Broneeri Lend</h1>
+
+<label for="lähtekoht">Lähtekoht:</label>
+<select id="lähtekoht">
+  <option value="">Vali sihtkoht</option>
+  <option value="Wobbly Waffleland">Wobbly Waffleland</option>
+  <option value="Snugglebug Swamp">Snugglebug Swamp</option>
+  <option value="Giggle Gulch">Giggle Gulch</option>
+  <option value="Fluffernutter Falls">Fluffernutter Falls</option>
+  <option value="Pickle Patch Plains">Pickle Patch Plains</option>
+</select>
+
+<label for="sihtkoht">Sihtkoht:</label>
+<select id="sihtkoht">
+  <option value="">Vali sihtkoht</option>
+  <option value="Wobbly Waffleland">Wobbly Waffleland</option>
+  <option value="Snugglebug Swamp">Snugglebug Swamp</option>
+  <option value="Giggle Gulch">Giggle Gulch</option>
+  <option value="Fluffernutter Falls">Fluffernutter Falls</option>
+  <option value="Pickle Patch Plains">Pickle Patch Plains</option>
+</select>
+
+<button onclick="otsiLennud()">Otsi lende</button>
+
+<table>
+  <thead>
+  <tr>
+    <th>ID</th>
+    <th>Lähtekoht</th>
+    <th>Sihtkoht</th>
+    <th>Kuupäev</th>
+    <th>Kellaaeg</th>
+    <th>Hind (€)</th>
+  </tr>
+  </thead>
+  <tbody id="lennud-tabel">
+  <tr>
+    <td colspan="6">Palun vali lähtekoht ja sihtkoht ning vajuta "Otsi lende"</td>
+  </tr>
+  </tbody>
+</table>
+
+
+</body>
+</html>

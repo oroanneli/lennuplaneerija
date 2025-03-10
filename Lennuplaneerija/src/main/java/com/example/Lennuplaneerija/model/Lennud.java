@@ -72,4 +72,17 @@ public class Lennud {
     public void setHind(double hind) {
         this.hind = hind;
     }
+
+    @Override
+    public String toString() {
+        return "Lennud{" +
+                "id=" + id +
+                ", sihtkoht='" + sihtkoht + '\'' +
+                ", lähtekoht='" + lähtekoht + '\'' +
+                ", kuupaev='" + kuupaev + '\'' +
+                ", kellaaeg='" + kellaaeg + '\'' +
+                ", hind=" + hind +
+                '}';
+    }
+
 }

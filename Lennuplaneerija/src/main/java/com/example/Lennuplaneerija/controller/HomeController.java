@@ -29,4 +29,11 @@ public class HomeController {
         return "home";
     }
 
+    @GetMapping("/broneeri")
+    public String broneeri(Model model){
+        List<Lennud> lennudList = lennudService.getKõikLennud();
+        model.addAttribute("lennudList", lennudList);
+        return "broneeri";
+    }
+
 }

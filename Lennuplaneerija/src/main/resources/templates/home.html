@@ -3,34 +3,21 @@
 <head>
     <meta charset="UTF-8">
     <title>Avaleht</title>
-    <link rel="stylesheet" type="text/css" href="/styleHome.css">
+    <link rel="stylesheet" type="text/css" href="/styleBroneeri.css">
+    <link rel="stylesheet" type="text/css" href="/styleNavBar.css">
+
 </head>
 <body>
+
+<div class="navbar">
+    <a class="active" th:href="@{'/'}">Home</a>
+    <a th:href="@{'/broneeri'}">Broneeri lend</a>
+</div>
 
 <h1>Tere tulemast avalehele !</h1>
 <!-- <h2 th:text="${message}"></h2> -->
 
-<a th:href="@{'/broneeri'}">Broneeri lend</a>
-<table>
-    <thead>
-    <tr>
-        <th>Sihtkoht</th>
-        <th>Lähtekoht</th>
-        <th>Kuupäev</th>
-        <th>Kellaeg</th>
-        <th>Hind</th>
-    </tr>
-    </thead>
-    <tbody>
-    <tr th:each="lend : ${lennudList}">
-        <td th:text="${lend.sihtkoht}"></td>
-        <td th:text="${lend.lähtekoht}"></td>
-        <td th:text="${lend.kuupaev}"></td >
-        <td th:text="${lend.kellaaeg}"></td>
-        <td th:text="${lend.hind}"></td>
-    </tr>
-    </tbody>
-</table>
+
 
 
 </body>

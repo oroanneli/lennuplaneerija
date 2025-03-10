@@ -7,6 +7,9 @@ import org.springframework.stereotype.Service;
 import java.util.List;
 import java.util.Optional;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 @Service
 public class LennudService {
     private final LennudRepository lennudRepository;
@@ -27,7 +30,23 @@ public class LennudService {
         return lennudRepository.save(lennud);
     }
 
-    public void deliteById(long id){
+    public void deleteById(long id){
         lennudRepository.deleteById(id);
+    }
+
+    private static final Logger logger = LoggerFactory.getLogger(LennudService.class);
+
+    public List<Lennud> filtreeriLennud(String lähtekoht, String sihtkoht) {
+        logger.info("Filtreerimine: lähtekoht = {}, sihtkoht = {}", lähtekoht, sihtkoht);
+
+        if (lähtekoht != null && !lähtekoht.isEmpty() && sihtkoht != null && !sihtkoht.isEmpty()) {
+            return lennudRepository.findByLähtekohtAndSihtkoht(lähtekoht, sihtkoht);
+        } else if (lähtekoht != null && !lähtekoht.isEmpty()) {
+            return lennudRepository.findByLähtekoht(lähtekoht);
+        } else if (sihtkoht != null && !sihtkoht.isEmpty()) {
+            return lennudRepository.findBySihtkoht(sihtkoht);
+        } else {
+            return lennudRepository.findAll();
+        }
     }
 }

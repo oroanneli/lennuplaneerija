@@ -16,8 +16,8 @@ public class Lennud {
     @Column(name = "lähtekoht")
     private String lähtekoht;
 
-    @Column(name = "kuupäev")
-    private String kuupäev;
+    @Column(name = "kuupaev")
+    private String kuupaev;
 
     @Column(name = "kellaaeg")
     private String kellaaeg;
@@ -49,12 +49,12 @@ public class Lennud {
         this.lähtekoht = lähtekoht;
     }
 
-    public String getKuupäev() {
-        return kuupäev;
+    public String getKuupaev() {
+        return kuupaev;
     }
 
-    public void setKuupäev(String kuupäev) {
-        this.kuupäev = kuupäev;
+    public void setKuupaev(String kuupaev) {
+        this.kuupaev = kuupaev;
     }
 
     public String getKellaaeg() {

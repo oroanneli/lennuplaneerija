@@ -25,23 +25,28 @@
       <div>
         <h2>Istekoha info:</h2>
         <p id="seat-info">Vali iste</p>
+        <button id="book-button">Broneeri iste</button>
       </div>
     </div>
 
     <script>
-      const rows = 10;
+      const rows = 6;
       const seats = ['A', 'B', '', 'C', 'D']; // "" esindab vahekäiku
-
       const totalSeats = rows * 4; // Kokku 4 istekohta rea kohta
       const takenCount = Math.floor(Math.random() * (totalSeats / 2)) + 1; // Juhuslik arv kinni olevaid kohti
       const takenSeats = new Set();
+      const bookedSeats = new Set(); // Salvestab kasutaja broneeritud istekohad
+      let selectedSeat = null; // Praegu valitud istekoht
+
       while (takenSeats.size < takenCount) {
         let randomRow = Math.floor(Math.random() * rows) + 1;
         let randomSeat = seats.filter(s => s !== "")[Math.floor(Math.random() * 4)];
         takenSeats.add(`${randomRow}${randomSeat}`);
       }
+
       const planeDiv = document.getElementById("plane");
       const seatInfo = document.getElementById("seat-info");
+      const bookButton = document.getElementById("book-button");
 
       for (let row = 1; row <= rows; row++) {
         seats.forEach(seat => {
@@ -61,15 +66,37 @@
             }
 
             btn.addEventListener("click", () => {
+              if (bookedSeats.has(seatId)) return; // Ei luba broneeritud istekohta valida
+
               document.querySelectorAll(".seat.selected").forEach(s => s.classList.remove("selected"));
               btn.classList.add("selected");
-              seatInfo.innerText = `Valitud iste: ${seatId}`;
+              selectedSeat = seatId;
+
+              const isAknaga = seat === "A" || seat === "D" ? " (Aknaga iste)" : "";
+              seatInfo.innerText = `Valitud iste: ${seatId}${isAknaga}`;
+              bookButton.style.display = "block";
             });
 
             planeDiv.appendChild(btn);
           }
         });
       }
+
+      bookButton.addEventListener("click", () => {
+        if (selectedSeat) {
+          alert("Iste broneeritud!");
+
+          bookedSeats.add(selectedSeat); // Salvestame broneeritud istekohad
+          const selectedButton = document.querySelector(".seat.selected");
+          selectedButton.classList.remove("selected");
+          selectedButton.classList.add("booked");
+          selectedButton.disabled = true;
+
+          seatInfo.innerText = `Broneeritud iste: ${selectedSeat}`;
+          bookButton.style.display = "none";
+          selectedSeat = null;
+        }
+      });
     </script>
   </body>
 </html>

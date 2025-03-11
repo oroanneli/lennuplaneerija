@@ -25,7 +25,7 @@ public class Lennud {
     @Column(name = "hind")
     private double hind;
 
-
+// muidu kõik undefined
     public long getId() {
         return id;
     }

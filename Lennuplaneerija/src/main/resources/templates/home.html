@@ -1,24 +1,33 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
-<head>
-    <meta charset="UTF-8">
-    <title>Avaleht</title>
-    <link rel="stylesheet" type="text/css" href="/styleBroneeri.css">
-    <link rel="stylesheet" type="text/css" href="/styleNavBar.css">
+    <head>
+        <meta charset="UTF-8">
+        <title>Avaleht</title>
+        <link rel="stylesheet" type="text/css" href="/styleHome.css">
+        <link rel="stylesheet" type="text/css" href="/styleNavBar.css">
 
-</head>
-<body>
+    </head>
+    <body>
+        <header>
+            <div class="container">
+                <nav>
+                    <ul class="nav_links">
+                        <li><a class="active" th:href="@{'/'}">Home</a></li>
+                        <li><a th:href="@{'/broneeri'}">Broneeri lend</a></li>
+                    </ul>
+                </nav>
+            </div>
+        </header>
 
-<div class="navbar">
-    <a class="active" th:href="@{'/'}">Home</a>
-    <a th:href="@{'/broneeri'}">Broneeri lend</a>
-</div>
-
-<h1>Tere tulemast avalehele !</h1>
-<!-- <h2 th:text="${message}"></h2> -->
+        <div class="content">
+            <h1>Tere tulemast avalehele !</h1>
+            <!-- <h2 th:text="${message}"></h2> -->
+        </div>
 
 
 
 
-</body>
+
+
+    </body>
 </html>

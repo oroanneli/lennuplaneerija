@@ -2,13 +2,16 @@
 
 body {
     font-family: Arial, sans-serif;
-    background-color: #f4f4f4;
+    /*margin: 20px;*/
+}
+.content{
     margin: 20px;
 }
 
 h1 {
-    color: #333;
+    color: #221114;
     text-align: center;
+    margin: 20px;
 }
 
 table {
@@ -18,13 +21,13 @@ table {
 }
 
 th, td {
-    border: 1px solid #ddd;
+    border: 1px solid #221114;
     padding: 10px;
     text-align: left;
 }
 
 th {
-    background-color: #4CAF50;
-    color: white;
+    background-color: #c1e6ce;
+    color: #221114;
 }
 

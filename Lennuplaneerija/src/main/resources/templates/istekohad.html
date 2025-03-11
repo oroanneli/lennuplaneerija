@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+      <meta charset="UTF-8">
+      <title>Istekohtade valimine</title>
+    <link rel="stylesheet" type="text/css" href="/styleIstekohad.css">
+    <link rel="stylesheet" type="text/css" href="/styleNavBar.css">
+  </head>
+
+  <body>
+    <header>
+      <div class="container">
+        <nav>
+          <ul class="nav_links">
+            <li><a th:href="@{'/'}">Home</a></li>
+            <li><a th:href="@{'/broneeri'}">Broneeri lend</a></li>
+          </ul>
+        </nav>
+      </div>
+    </header>
+
+    <h1>Vali istekoht</h1>
+    <div class="container">
+      <div class="plane" id="plane"></div>
+      <div>
+        <h2>Istekoha info:</h2>
+        <p id="seat-info">Vali iste</p>
+      </div>
+    </div>
+
+    <script>
+      const rows = 10;
+      const seats = ['A', 'B', '', 'C', 'D']; // "" esindab vahekäiku
+
+      const totalSeats = rows * 4; // Kokku 4 istekohta rea kohta
+      const takenCount = Math.floor(Math.random() * (totalSeats / 2)) + 1; // Juhuslik arv kinni olevaid kohti
+      const takenSeats = new Set();
+      while (takenSeats.size < takenCount) {
+        let randomRow = Math.floor(Math.random() * rows) + 1;
+        let randomSeat = seats.filter(s => s !== "")[Math.floor(Math.random() * 4)];
+        takenSeats.add(`${randomRow}${randomSeat}`);
+      }
+      const planeDiv = document.getElementById("plane");
+      const seatInfo = document.getElementById("seat-info");
+
+      for (let row = 1; row <= rows; row++) {
+        seats.forEach(seat => {
+          if (seat === "") {
+            const emptyDiv = document.createElement("div");
+            emptyDiv.style.width = "50px";
+            planeDiv.appendChild(emptyDiv);
+          } else {
+            const seatId = `${row}${seat}`;
+            const btn = document.createElement("button");
+            btn.innerText = seatId;
+            btn.classList.add("seat");
+
+            if (takenSeats.has(seatId)) {
+              btn.classList.add("taken");
+              btn.disabled = true;
+            }
+
+            btn.addEventListener("click", () => {
+              document.querySelectorAll(".seat.selected").forEach(s => s.classList.remove("selected"));
+              btn.classList.add("selected");
+              seatInfo.innerText = `Valitud iste: ${seatId}`;
+            });
+
+            planeDiv.appendChild(btn);
+          }
+        });
+      }
+    </script>
+  </body>
+</html>

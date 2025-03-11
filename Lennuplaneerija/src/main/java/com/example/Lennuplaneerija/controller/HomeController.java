@@ -36,4 +36,9 @@ public class HomeController {
         return "broneeri";
     }
 
+    @GetMapping("/istekohad")
+    public String istekohad(Model model){
+        return "istekohad";
+    }
+
 }

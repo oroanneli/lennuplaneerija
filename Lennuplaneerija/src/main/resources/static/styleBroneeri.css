@@ -1,17 +1,16 @@
 /* comment */
 
-body {
-    font-family: Arial, sans-serif;
-    /*margin: 20px;*/
-}
 .content{
     margin: 20px;
+    background-color: #cee0f8;
+    padding: 20px;
+    border-radius: 15px;
 }
 
 h1 {
-    color: #221114;
-    text-align: center;
-    margin: 20px;
+    color: #211217;
+    text-align: left;
+    margin: 15px;
 }
 
 table {
@@ -21,13 +20,45 @@ table {
 }
 
 th, td {
-    border: 1px solid #221114;
-    padding: 10px;
+    border: 1px solid #211217;
+    padding: 15px;
     text-align: left;
 }
 
 th {
-    background-color: #c1e6ce;
-    color: #221114;
+    background-color: #6b9194;
+    color: #211217;
 }
 
+tr {
+    background-color: #cee0f8;
+}
+
+.menuu{
+    margin: 10px;
+    background-color: #cee0f8;
+    float: left;
+    padding: 10px;
+    border-radius: 15px;
+
+}
+
+button{
+    background-color: #6b9194;
+    color: #211217;
+    /*margin: 15px;*/
+    padding: 15px;
+    border-radius: 15px;
+}
+
+button:hover{
+    background-color: #86a78b;
+}
+
+select{
+    background-color: #f2e5e3;
+    color: #211217;
+    margin: 15px;
+    padding: 15px;
+    border-radius: 15px;
+}

@@ -41,16 +41,17 @@
 
           // Loome iga lennu jaoks tabeli ridade HTML
           lennud.forEach(lend => {
-            const rida = `
-                          <tr>
-                              <td>${lend.id}</td>
-                              <td>${lend.lähtekoht}</td>
-                              <td>${lend.sihtkoht}</td>
-                              <td>${lend.kuupaev}</td>
-                              <td>${lend.kellaaeg}</td>
-                              <td>${lend.hind}</td>
-                          </tr>`;
-            tabel.innerHTML += rida;
+            const rida = document.createElement("tr");
+            rida.innerHTML = `
+              <td>${lend.id}</td>
+              <td>${lend.lähtekoht}</td>
+              <td>${lend.sihtkoht}</td>
+              <td>${lend.kuupaev}</td>
+              <td>${lend.kellaaeg}</td>
+              <td>${lend.hind} €</td>
+              <td><button onclick="window.location.href='/'">Vali istekoht</button></td>
+            `;
+            tabel.appendChild(rida);
           });
 
         } catch (error) {
@@ -101,21 +102,23 @@
 
       <table>
         <thead>
-        <tr>
-          <th>ID</th>
-          <th>Lähtekoht</th>
-          <th>Sihtkoht</th>
-          <th>Kuupäev</th>
-          <th>Kellaaeg</th>
-          <th>Hind (€)</th>
-        </tr>
+          <tr>
+            <th>ID</th>
+            <th>Lähtekoht</th>
+            <th>Sihtkoht</th>
+            <th>Kuupäev</th>
+            <th>Kellaaeg</th>
+            <th>Hind (€)</th>
+            <th></th>
+          </tr>
         </thead>
         <tbody id="lennud-tabel">
-        <tr>
-          <td colspan="6">Palun vali lähtekoht ja sihtkoht ning vajuta "Otsi lende"</td>
-        </tr>
+          <tr>
+            <td colspan="6">Palun vali lähtekoht ja sihtkoht ning vajuta "Otsi lende"</td>
+          </tr>
         </tbody>
       </table>
+
 
     </div>
     </body>

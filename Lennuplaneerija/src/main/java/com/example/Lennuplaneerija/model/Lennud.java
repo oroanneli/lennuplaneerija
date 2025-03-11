@@ -25,6 +25,7 @@ public class Lennud {
     @Column(name = "hind")
     private double hind;
 
+
     public long getId() {
         return id;
     }

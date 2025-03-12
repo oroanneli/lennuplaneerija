@@ -2,7 +2,8 @@
     display: flex;
     gap: 50px;
     padding: 20px;
-    margin: 20px;
+    margin: 40px auto;
+    max-width: 1000px;
 }
 
 h1 {
@@ -14,26 +15,26 @@ h1 {
     grid-template-columns: auto auto 30px auto auto;
     gap: 10px;
     background-color: #cee0f8;
-    border-radius: 50px 50px 10px 10px;
-    padding: 40px 10px;
+    border-radius: 60px 60px 10px 10px;
+    padding: 60px 10px 20px 10px;
 }
 .seat {
     width: 50px;
     height: 50px;
-    background-color: lightgray;
-    border: 1px solid black;
+    background-color: #86a78b;
+    border: 1px solid #211217;
     cursor: pointer;
     border-radius: 15px;
 }
 .seat.taken {
-    background-color: red;
+    background-color: #5a303d;
     cursor: not-allowed;
 }
 .seat.selected {
-    background-color: green;
+    background-color: #6b9194;
 }
 .seat.booked {
-    background-color: yellow;
+    background-color: #ad5e52;
     cursor: not-allowed;
 }
 #book-button {
@@ -41,5 +42,15 @@ h1 {
     padding: 10px;
     font-size: 16px;
     cursor: pointer;
-    display: none;
+    float: right;
+    /*display: none;*/
+}
+
+.info{
+    width: 400px;
+    height: 200px;
+    border-radius: 15px;
+    background-color: #cee0f8;
+    padding: 30px;
+    justify-content: start;
 }

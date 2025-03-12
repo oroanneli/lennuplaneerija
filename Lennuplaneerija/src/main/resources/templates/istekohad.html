@@ -1,111 +1,215 @@
 <!DOCTYPE html>
-<html lang="en">
-  <head>
-      <meta charset="UTF-8">
-      <title>Istekohtade valimine</title>
-    <link rel="stylesheet" type="text/css" href="/styleIstekohad.css">
-    <link rel="stylesheet" type="text/css" href="/styleNavBar.css">
-  </head>
+<html lang="et">
+<head>
+  <meta charset="UTF-8">
+  <title>Istekohtade valimine</title>
+  <link rel="stylesheet" type="text/css" href="/styleIstekohad.css">
+  <link rel="stylesheet" type="text/css" href="/styleNavBar.css">
+</head>
+<body>
 
-  <body>
-    <header>
-      <div class="container">
-        <nav>
-          <ul class="nav_links">
-            <li><a th:href="@{'/'}">Home</a></li>
-            <li><a th:href="@{'/broneeri'}">Broneeri lend</a></li>
-          </ul>
-        </nav>
-      </div>
-    </header>
+<header>
+  <div class="container">
+    <nav>
+      <ul class="nav_links">
+        <li><a th:href="@{'/'}">Home</a></li>
+        <li><a th:href="@{'/broneeri'}">Broneeri lend</a></li>
+      </ul>
+    </nav>
+  </div>
+</header>
 
-    <h1>Vali istekoht</h1>
-    <div class="container">
-      <div class="plane" id="plane"></div>
-      <div>
-        <h2>Istekoha info:</h2>
-        <p id="seat-info">Vali iste</p>
-        <button id="book-button">Broneeri iste</button>
-      </div>
-    </div>
+<h1>Vali istekoht</h1>
+<div class="container">
+  <!-- Kasutaja eelistused -->
+  <div class="filters">
+    <h2>Sinu eelistused</h2>
+    <label><input type="checkbox" id="window-seat">
+      <p>Aknaga iste</p></label>
+    <label><input type="checkbox" id="side-by-side">
+      <p>Kõrvuti istekohad</p></label>
+    <label>
+      <p>Piletite arv:</p><input type="number" id="ticket-count" min="1" max="10" value="1">
+    </label>
+    <button id="suggest-button">Soovita istekohti</button>
+  </div>
 
-    <script>
-      const rows = 10;
-      const seats = ['A', 'B', '', 'C', 'D']; // "" - vahekäik
-      const totalSeats = rows * 4; // igas reas 4 istet
-      const takenCount = Math.floor(Math.random() * (totalSeats / 2)) + 1; // juhuslik arv kinni olevaid kohti
-      const takenSeats = new Set();
-      const bookedSeats = new Set(); // kasutaja broneeritud istekohad
-      let selectedSeat = null; // praegu valitud istekoht
+  <!-- Lennuki istekohad -->
+  <div class="plane" id="plane"></div>
 
-      while (takenSeats.size < takenCount) {
-        let randomRow = Math.floor(Math.random() * rows) + 1;
-        let randomSeat = seats.filter(s => s !== "")[Math.floor(Math.random() * 4)];
-        takenSeats.add(`${randomRow}${randomSeat}`);
-      }
+  <!-- Istekoha info -->
+  <div class="info">
+    <h2>Istekoha info:</h2>
+    <p id="seat-info">Vali istekoht</p>
+    <button id="book-button" style="display: none;">Broneeri istekohad</button>
+  </div>
+</div>
 
-      const planeDiv = document.getElementById("plane");
-      const seatInfo = document.getElementById("seat-info");
-      const bookButton = document.getElementById("book-button");
+<script>
+  const rows = 10;
+  const seats = ['A', 'B', '', 'C', 'D']; // "" - vahekäik
+  const totalSeats = rows * 4;
+  const takenSeats = new Set();
+  const bookedSeats = new Set();
+  let selectedSeats = new Set();
 
-      for (let row = 1; row <= rows; row++) {
-        seats.forEach(seat => {
-          if (seat === "") {
-            const emptyDiv = document.createElement("div");
-            emptyDiv.style.width = "50px";
-            planeDiv.appendChild(emptyDiv);
-          } else {
-            const seatId = `${row}${seat}`;
-            const btn = document.createElement("button");
-            btn.innerText = seatId;
-            btn.classList.add("seat");
+  // juhuslikud genereeritud juba broneeritud istekohad
+  while (takenSeats.size < Math.floor(Math.random() * (totalSeats / 2)) + 1) {
+    let randomRow = Math.floor(Math.random() * rows) + 1;
+    let randomSeat = seats.filter(s => s !== "")[Math.floor(Math.random() * 4)];
+    takenSeats.add(`${randomRow}${randomSeat}`);
+  }
 
-            if (takenSeats.has(seatId)) {
-              btn.classList.add("taken");
-              btn.disabled = true;
+  const planeDiv = document.getElementById("plane");
+  const seatInfo = document.getElementById("seat-info");
+  const bookButton = document.getElementById("book-button");
+  const suggestButton = document.getElementById("suggest-button");
+
+  function createSeats() {
+    for (let row = 1; row <= rows; row++) {
+      seats.forEach(seat => {
+        if (seat === "") {//vahekäik - tühi element
+          const emptyDiv = document.createElement("div");
+          emptyDiv.style.width = "50px";
+          planeDiv.appendChild(emptyDiv);
+        }
+        else { // iga iste on nupp mille id on instme tähis
+          const seatId = `${row}${seat}`;
+          const btn = document.createElement("button");
+          btn.innerText = seatId;
+          btn.classList.add("seat");
+
+          if (takenSeats.has(seatId)) { // kui see juba on broneeritud istmete hulgas, rakendada stiili taken
+            btn.classList.add("taken");
+            btn.disabled = true;
+          }
+
+          btn.addEventListener("click", () => {
+            if (bookedSeats.has(seatId)){ //kui juba broneeritud iste, siis ei juhtu midagi
+              return;
             }
 
-            btn.addEventListener("click", () => {
-              if (bookedSeats.has(seatId)){ // Ei luba broneeritud istekohta valida
-                return;
-              }
-
-              document.querySelectorAll(".seat.selected").forEach(s => s.classList.remove("selected"));
+            if (selectedSeats.has(seatId)) { // kui juba oli valitud, siis unselect
+              selectedSeats.delete(seatId);
+              btn.classList.remove("selected");
+            }
+            else { // lisada kasutaja valitud istmete hulka
+              selectedSeats.add(seatId);
               btn.classList.add("selected");
-              selectedSeat = seatId;
+            }
 
-              // aknaga istmete eristamine vahekäigu omadest
-              let isAknaga;
-              if (seat === "A" || seat === "D"){
-                isAknaga=" (Aknaga iste)"
-              }
-              else{
-                isAknaga="";
-              }
-              seatInfo.innerText = `Valitud iste: ${seatId}${isAknaga}`;
+            updateSeatInfo();
+            if (selectedSeats.size > 0) {
               bookButton.style.display = "block";
-            });
+            } else {
+              bookButton.style.display = "none";
+            }          });
 
-            planeDiv.appendChild(btn);
+          planeDiv.appendChild(btn);
+        }
+      });
+    }
+  }
+
+  function updateSeatInfo() {
+    const selectedArray = Array.from(selectedSeats);
+    if (selectedArray.length > 0) {
+      let seatText = selectedArray.map(seat => {
+        let seatLetter = seat.slice(-1);
+        let isAknaga = (seatLetter === "A" || seatLetter === "D") ? " (Aknaga iste)" : "";
+        return `${seat}${isAknaga}`;
+      }).join(", "); // kuvab kõik valitus istmed
+      seatInfo.innerText = `Valitud: ${seatText}`;
+
+    }
+    else { // kui ühtegi istet pole valitud
+      seatInfo.innerText = "Vali istekoht";
+    }
+  }
+
+  function suggestSeats() {
+    selectedSeats.clear();
+    const isWindowSeat = document.getElementById("window-seat").checked;
+    const isSideBySide = document.getElementById("side-by-side").checked;
+    const ticketCount = parseInt(document.getElementById("ticket-count").value);
+
+    let availableSeats = [];
+
+    for (let row = 1; row <= rows; row++) {
+      let rowSeats = [];
+      seats.forEach(seat => {
+        if (seat !== "") {
+          const seatId = `${row}${seat}`;
+          if (!takenSeats.has(seatId) && !bookedSeats.has(seatId)) {
+            let isAknaga = (seat === "A" || seat === "D");
+            if (isWindowSeat && !isAknaga) return; // Ainult aknaga istekohad
+            rowSeats.push(seatId);
           }
-        });
+        }
+      });
+      availableSeats.push(rowSeats);
+    }
+
+    let foundSeats = [];
+
+    if (isSideBySide) {
+      // Leia istekohad samast reast
+      for (let row of availableSeats) {
+        for (let i = 0; i <= row.length - ticketCount; i++) {
+          let suggestion = row.slice(i, i + ticketCount);
+          if (suggestion.length === ticketCount) {
+            foundSeats = suggestion;
+            break;
+          }
+        }
+        if (foundSeats.length === ticketCount) break;
       }
+    }
 
-      bookButton.addEventListener("click", () => {
-        if (selectedSeat) {
-          alert("Iste broneeritud!");
+    if (!isSideBySide || foundSeats.length < ticketCount) {
+      // Kui ei leitud kõrvuti kohti, siis vali suvalised
+      let flatSeats = availableSeats.flat();
+      foundSeats = flatSeats.slice(0, ticketCount);
+    }
 
-          bookedSeats.add(selectedSeat); // Salvestame broneeritud istekohad
-          const selectedButton = document.querySelector(".seat.selected");
+    selectedSeats = new Set(foundSeats);
+
+    document.querySelectorAll(".seat").forEach(btn => {
+      if (selectedSeats.has(btn.innerText)) {
+        btn.classList.add("selected");
+      } else {
+        btn.classList.remove("selected");
+      }
+    });
+
+    updateSeatInfo();
+    bookButton.style.display = "block";
+  }
+
+  bookButton.addEventListener("click", () => {
+    if (selectedSeats.size > 0) {
+      alert("Istekohad broneeritud!");
+
+      selectedSeats.forEach(seatId => {
+        bookedSeats.add(seatId);
+        const selectedButton = Array.from(document.querySelectorAll(".seat"))
+                .find(btn => btn.innerText === seatId);
+
+        if (selectedButton) {
           selectedButton.classList.remove("selected");
           selectedButton.classList.add("booked");
           selectedButton.disabled = true;
-
-          seatInfo.innerText = `Broneeritud iste: ${selectedSeat}`;
-          bookButton.style.display = "none";
-          selectedSeat = null;
         }
       });
-    </script>
-  </body>
+
+      seatInfo.innerText = `Broneeritud: ${Array.from(selectedSeats).join(", ")}`;
+      bookButton.style.display = "none";
+      selectedSeats.clear();
+    }
+  });
+
+  suggestButton.addEventListener("click", suggestSeats);
+  createSeats();
+</script>
+</body>
 </html>

@@ -34,3 +34,19 @@ p{
     font-size: larger;
 
 }
+
+.bron-nupp{
+    text-decoration: none;
+    color: #211217;
+    background-color: #ad5e52;
+    font-size: larger;
+    padding: 20px;
+    border-radius: 15px;
+    max-width: 100px;
+    float: right;
+}
+
+.bron-nupp:hover{
+    background-color: #5a303d;
+    color: #cee0f8;
+}

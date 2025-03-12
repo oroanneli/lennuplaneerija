@@ -1,11 +1,21 @@
 .container {
     display: flex;
     gap: 50px;
+    padding: 20px;
+    margin: 20px;
 }
+
+h1 {
+    margin: 20px;
+}
+
 .plane {
     display: grid;
-    grid-template-columns: auto auto 50px auto auto;
+    grid-template-columns: auto auto 30px auto auto;
     gap: 10px;
+    background-color: #cee0f8;
+    border-radius: 50px 50px 10px 10px;
+    padding: 40px 10px;
 }
 .seat {
     width: 50px;
@@ -13,6 +23,7 @@
     background-color: lightgray;
     border: 1px solid black;
     cursor: pointer;
+    border-radius: 15px;
 }
 .seat.taken {
     background-color: red;

@@ -1,3 +1,36 @@
-.content{
-    margin: 20px;
+
+
+.content {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    max-width: 100000px;
+    align-content: center;
+    margin: 50px;
+    background-color: #cee0f8;
+    padding: 20px;
+    border-radius: 20px;
+}
+.text-img-conteiner, .text-img-conteiner-reverse {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+}
+.text-img-conteiner-reverse {
+    flex-direction: row-reverse;
+    text-align: right;
+}
+img {
+    width: 350px;
+    height: auto;
+    border-radius: 8px;
+    margin-left: 50px;
+    margin-right: 50px;
+    border-radius: 50px;
+}
+
+p{
+    color: #211217;
+    font-size: larger;
+
 }

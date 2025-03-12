@@ -30,13 +30,13 @@
     </div>
 
     <script>
-      const rows = 6;
-      const seats = ['A', 'B', '', 'C', 'D']; // "" esindab vahekäiku
-      const totalSeats = rows * 4; // Kokku 4 istekohta rea kohta
-      const takenCount = Math.floor(Math.random() * (totalSeats / 2)) + 1; // Juhuslik arv kinni olevaid kohti
+      const rows = 10;
+      const seats = ['A', 'B', '', 'C', 'D']; // "" - vahekäik
+      const totalSeats = rows * 4; // igas reas 4 istet
+      const takenCount = Math.floor(Math.random() * (totalSeats / 2)) + 1; // juhuslik arv kinni olevaid kohti
       const takenSeats = new Set();
-      const bookedSeats = new Set(); // Salvestab kasutaja broneeritud istekohad
-      let selectedSeat = null; // Praegu valitud istekoht
+      const bookedSeats = new Set(); // kasutaja broneeritud istekohad
+      let selectedSeat = null; // praegu valitud istekoht
 
       while (takenSeats.size < takenCount) {
         let randomRow = Math.floor(Math.random() * rows) + 1;
@@ -66,13 +66,22 @@
             }
 
             btn.addEventListener("click", () => {
-              if (bookedSeats.has(seatId)) return; // Ei luba broneeritud istekohta valida
+              if (bookedSeats.has(seatId)){ // Ei luba broneeritud istekohta valida
+                return;
+              }
 
               document.querySelectorAll(".seat.selected").forEach(s => s.classList.remove("selected"));
               btn.classList.add("selected");
               selectedSeat = seatId;
 
-              const isAknaga = seat === "A" || seat === "D" ? " (Aknaga iste)" : "";
+              // aknaga istmete eristamine vahekäigu omadest
+              let isAknaga;
+              if (seat === "A" || seat === "D"){
+                isAknaga=" (Aknaga iste)"
+              }
+              else{
+                isAknaga="";
+              }
               seatInfo.innerText = `Valitud iste: ${seatId}${isAknaga}`;
               bookButton.style.display = "block";
             });

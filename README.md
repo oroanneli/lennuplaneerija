@@ -3,7 +3,7 @@ CGI suvepraktikale kandideerimise ülesanne
 
 ## Veebirakenduse käivitamine
 1. Kõigepealt tuleb kloonida see repositoorium
-2. Veebirakenduse käivitamiseks luua endale MySQL andmebaasi tabel käsuga:
+2. Veebirakenduse käivitamiseks luua endale MySQL andmebaas nimega lennuplaneerija ning luua sinna tabel käsuga:
 ```
 CREATE TABLE `lennud` (
   `id` bigint NOT NULL AUTO_INCREMENT,
@@ -12,7 +12,6 @@ CREATE TABLE `lennud` (
   `kuupaev` varchar(255) DEFAULT NULL,
   `kellaaeg` varchar(255) DEFAULT NULL,
   `hind` double DEFAULT NULL,
-  `kuupäev` varchar(255) DEFAULT NULL,
   PRIMARY KEY (`id`),
   UNIQUE KEY `id_UNIQUE` (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=14 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci

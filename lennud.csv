@@ -1,0 +1,13 @@
+id,Origin,Destination,Date,Time,Price
+1,Wobbly Waffleland,Giggle Gulch,2024-11-15,7:30,115
+2,Snugglebug Swamp,Fluffernutter Falls,2024-11-15,10:00,160
+3,Giggle Gulch,Pickle Patch Plains,2024-11-16,13:00,95
+4,Fluffernutter Falls,Wobbly Waffleland,2024-11-16,15:45,185
+5,Pickle Patch Plains,Snugglebug Swamp,2024-11-17,17:30,120
+6,Wobbly Waffleland,Pickle Patch Plains,2024-11-17,19:15,140
+7,Snugglebug Swamp,Giggle Gulch,2024-11-18,8:45,165
+8,Fluffernutter Falls,Pickle Patch Plains,2024-11-18,11:15,105
+9,Giggle Gulch,Fluffernutter Falls,2024-11-19,14:00,150
+10,Pickle Patch Plains,Wobbly Waffleland,2024-11-19,16:30,175
+11,Wobbly Waffleland,Snugglebug Swamp,2024-11-20,18:00,130
+12Giggle Gulch,Wobbly Waffleland,2024-11-20,19:30,90

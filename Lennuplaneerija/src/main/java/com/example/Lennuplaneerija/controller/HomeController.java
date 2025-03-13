@@ -18,14 +18,7 @@ public class HomeController {
     }
 
     @GetMapping("/")
-    //public String home(@RequestParam(value = "nimi", defaultValue = "") String nimi, Model model){
     public String home(Model model){
-        //String tervita = "Tere, "+nimi;
-        //model.addAttribute("message", tervita);
-
-        List<Lennud> lennudList = lennudService.getKõikLennud();
-        model.addAttribute("lennudList", lennudList);
-
         return "home";
     }
 
@@ -37,7 +30,7 @@ public class HomeController {
     }
 
     @GetMapping("/istekohad")
-    public String istekohad(Model model){
+    public String istekohad(){
         return "istekohad";
     }
 

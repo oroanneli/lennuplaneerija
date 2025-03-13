@@ -61,16 +61,6 @@ p{
     padding: 15px;
 }
 
-input[type=checkbox] {
-    width:15px;
-    height:15px;
-}
-input[type=number]{
-    font-size: 15px;
-}
-
-
-
 h2{
     color: #211217;
     padding: 15px;
@@ -80,4 +70,17 @@ h2{
     height: 40px;
     width: 80px;
 }
+
+.filters label {
+    display: block;
+    margin-bottom: 5px;
+    color: #211217;
+}
+
+.filters label + input[type="number"] {
+    margin-left: 5px;
+    color: #211217;
+
+}
+
 

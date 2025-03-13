@@ -1,8 +1,8 @@
 spring:
   datasource:
     url: jdbc:mysql://localhost:3306/lennuplaneerija
-    username: kasutaja
-    password: parool
+    username: #kasutajanimi
+    password: #parool
 
   jpa:
     hibernate:

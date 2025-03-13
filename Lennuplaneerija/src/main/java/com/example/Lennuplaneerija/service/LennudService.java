@@ -12,7 +12,6 @@ public class LennudService {
     public LennudService(LennudRepository lennudRepository) {
         this.lennudRepository = lennudRepository;
     }
-
     public List<Lennud> getKõikLennud() {
         return lennudRepository.findAll();
     }

@@ -1,10 +1,8 @@
-/* Add a black background color to the top navigation */
+/* kõikidele lehtedele kehtivad stiilid */
 * {
     margin: 0;
     padding: 0;
     font-family: Arial, sans-serif;
-
-    /*box-sizing: border-box;*/
 }
 
 body {

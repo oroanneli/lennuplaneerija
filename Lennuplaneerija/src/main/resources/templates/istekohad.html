@@ -25,13 +25,10 @@
 <div class="container">
   <!-- Kasutaja eelistused -->
   <div class="filters">
-    <label><input type="checkbox" id="window-seat">
-      <p>Aknaga iste</p></label>
-    <label><input type="checkbox" id="side-by-side">
-      <p>Kõrvuti istekohad</p></label>
-    <label>
-      <p>Piletite arv:</p><input type="number" id="ticket-count" min="1" max="10" value="1">
-    </label>
+    <label><input type="checkbox" id="window-seat">Aknaga iste</label><br>
+    <label><input type="checkbox" id="side-by-side">Kõrvuti istekohad</label><br>
+    <label>Piletite arv:</label>
+    <input type="number" id="ticket-count" min="1" max="10" value="1">
     <button id="suggest-button">Soovita istekohti</button>
   </div>
 
@@ -114,12 +111,17 @@
 
   function updateSeatInfo() {
     const selectedArray = Array.from(selectedSeats);
-    if (selectedArray.length > 0) {
-      let seatText = selectedArray.map(seat => {
+    if (selectedArray.length > 0) { // kui mõni iste on valitud, kuvada selle kohta info
+      let seatText = [];
+      for (let i = 0; i < selectedArray.length; i++) {
+        let seat = selectedArray[i];
         let seatLetter = seat.slice(-1);
-        let isAknaga = (seatLetter === "A" || seatLetter === "D") ? " (Aknaga iste)" : "";
-        return `${seat}${isAknaga}`;
-      }).join(", "); // kuvab kõik valitus istmed
+        let isAknaga = "";
+        if (seatLetter === "A" || seatLetter === "D") {
+          isAknaga = " (Aknaga iste)";
+        }
+        seatText.push(seat + isAknaga);
+      }
       seatInfo.innerText = `Valitud: ${seatText}`;
 
     }
@@ -129,10 +131,19 @@
   }
 
   function suggestSeats() {
+    if (bookedSeats.size + takenSeats.size === totalSeats) {
+      alert("Vabad istekohad puuduvad!");
+      return;
+    }
     selectedSeats.clear();
     const isWindowSeat = document.getElementById("window-seat").checked;
     const isSideBySide = document.getElementById("side-by-side").checked;
     const ticketCount = parseInt(document.getElementById("ticket-count").value);
+
+    if (bookedSeats.size + takenSeats.size + ticketCount > totalSeats){
+      alert("Ei leidu nii palju vabu istekohti!")
+      return;
+    }
 
     let availableSeats = [];
 
@@ -141,9 +152,16 @@
       seats.forEach(seat => {
         if (seat !== "") {
           const seatId = `${row}${seat}`;
-          if (!takenSeats.has(seatId) && !bookedSeats.has(seatId)) {
-            let isAknaga = (seat === "A" || seat === "D");
-            if (isWindowSeat && !isAknaga) return; // Ainult aknaga istekohad
+
+          const isTaken = takenSeats.has(seatId);
+          const isBooked = bookedSeats.has(seatId);
+
+          if (!isTaken && !isBooked) {
+            const isAknaga = (seat === "A" || seat === "D");
+
+            if (isWindowSeat && !isAknaga) { //kui otsitakse aknaga istet, jätab vahele ilma aknata istmed
+              return;
+            }
             rowSeats.push(seatId);
           }
         }
@@ -154,8 +172,7 @@
     let foundSeats = [];
 
     if (isSideBySide) {
-      // Leia istekohad samast reast
-      for (let row of availableSeats) {
+      for (let row of availableSeats) {// Leia istekohad samast reast
         for (let i = 0; i <= row.length - ticketCount; i++) {
           let suggestion = row.slice(i, i + ticketCount);
           if (suggestion.length === ticketCount) {
@@ -163,7 +180,9 @@
             break;
           }
         }
-        if (foundSeats.length === ticketCount) break;
+        if (foundSeats.length === ticketCount){ //kui kõik istmed leitud
+          break;
+        }
       }
     }
 
@@ -175,7 +194,7 @@
 
     selectedSeats = new Set(foundSeats);
 
-    document.querySelectorAll(".seat").forEach(btn => {
+    document.querySelectorAll(".seat").forEach(btn => { //vajutamisel muuda stiili, kui ei ole juba varem valitud
       if (selectedSeats.has(btn.innerText)) {
         btn.classList.add("selected");
       } else {
@@ -193,9 +212,12 @@
 
       selectedSeats.forEach(seatId => {
         bookedSeats.add(seatId);
-        const selectedButton = Array.from(document.querySelectorAll(".seat"))
-                .find(btn => btn.innerText === seatId);
-
+        const seatButtons = document.querySelectorAll(".seat");
+        const seatButtonArray = Array.from(seatButtons);
+        const selectedButton = seatButtonArray.find(button => {
+          return button.innerText === seatId;
+        });
+        
         if (selectedButton) {
           selectedButton.classList.remove("selected");
           selectedButton.classList.add("booked");

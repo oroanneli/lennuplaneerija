@@ -15,8 +15,12 @@
         let sihtkoht = document.getElementById("sihtkoht").value;
 
         // vaikeväärtusena "kõik"
-        if (!lähtekoht) lähtekoht = "kõik";
-        if (!sihtkoht) sihtkoht = "kõik";
+        if (!lähtekoht){
+          lähtekoht = "kõik";
+        }
+        if (!sihtkoht){
+          sihtkoht = "kõik";
+        }
 
         const url = `http://localhost:8080/lennud?lähtekoht=${encodeURIComponent(lähtekoht)}&sihtkoht=${encodeURIComponent(sihtkoht)}`;
         const response = await fetch(url);

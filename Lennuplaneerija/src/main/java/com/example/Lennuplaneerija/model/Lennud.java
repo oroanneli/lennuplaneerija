@@ -7,25 +7,13 @@ import jakarta.persistence.*;
 public class Lennud {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "id")
     private long id;
-
-    @Column(name = "sihtkoht")
     private String sihtkoht;
-
-    @Column(name = "lähtekoht")
     private String lähtekoht;
-
-    @Column(name = "kuupaev")
     private String kuupaev;
-
-    @Column(name = "kellaaeg")
     private String kellaaeg;
-
-    @Column(name = "hind")
     private double hind;
 
-// muidu kõik undefined
     public long getId() {
         return id;
     }
@@ -74,16 +62,5 @@ public class Lennud {
         this.hind = hind;
     }
 
-    @Override
-    public String toString() {
-        return "Lennud{" +
-                "id=" + id +
-                ", sihtkoht='" + sihtkoht + '\'' +
-                ", lähtekoht='" + lähtekoht + '\'' +
-                ", kuupaev='" + kuupaev + '\'' +
-                ", kellaaeg='" + kellaaeg + '\'' +
-                ", hind=" + hind +
-                '}';
-    }
 
 }

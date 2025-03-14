@@ -37,14 +37,7 @@ h1 {
     background-color: #ad5e52;
     cursor: not-allowed;
 }
-#book-button {
-    margin-top: 10px;
-    padding: 10px;
-    font-size: 16px;
-    cursor: pointer;
-    float: right;
-    /*display: none;*/
-}
+
 
 .info{
     width: 400px;
@@ -69,6 +62,25 @@ h2{
 #suggest-button{
     height: 40px;
     width: 80px;
+    background-color: #6b9194;
+    color: #211217;
+    border-radius: 15px;
+
+}
+
+#book-button{
+    background-color: #6b9194;
+    color: #211217;
+    padding: 15px;
+    border-radius: 15px;
+}
+
+#book-button:hover{
+    background-color: #86a78b;
+}
+
+#suggest-button:hover{
+    background-color: #86a78b;
 }
 
 .filters label {

@@ -145,6 +145,11 @@
       return;
     }
 
+    if (!(ticketCount>0)){
+      alert("Istekohtade soovitamiseks valida palun vähemalt 1 pilet!")
+      return;
+    }
+
     let availableSeats = [];
 
     for (let row = 1; row <= rows; row++) {

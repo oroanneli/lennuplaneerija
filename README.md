@@ -19,3 +19,7 @@ CREATE TABLE `lennud` (
 3. Andmete sisestamiseks tuleb need importida failist lennud.csv
 4. Faili application-example.yml baasil luua fail application.yml kus #kasutajanimi ja #parool vahetada enda omade vastu
 5. Käivitada fail LennuplaneerijaApplication.java ning avada browserist [localhost:8080](http://localhost:8080/)
+
+### Arendustöö
+
+Kuna ma polnud kunagi varem Spring Booti kasutanud, siis oli see ülesanne minu jaoks kindlasti õppeprotsess ja paras katsumus. Alguses ülesandele otsa vaadates oli küll selline tunne, et ei oska isegi kuskilt peale hakata. Õnneks on internetis palju õpetusi, mille abil sain aru, et mida teha ning kuidas ülesande lahendamisele läheneda. Projekt ei ole kindlasti täiuslik, kuid olen uhke, et selle tehtud sain. Mul on hea meel, et kuigi ülesanne tundus alguses keeruline ja hirmutav tegin selle siiski lõpuni ning läbi selle oli mul võimalus õppida ja areneda ka väljaspool kohustuslikku õppekava.
